@@ -1,22 +1,32 @@
 package it.polito.tdp.lab04.controller;
 
 import java.net.URL;
+import java.util.*;
 import java.util.ResourceBundle;
 
 import it.polito.tdp.lab04.model.Corso;
 import it.polito.tdp.lab04.model.Model;
+import it.polito.tdp.lab04.model.Studente;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class SegreteriaStudentiController {
-	
 	Model model;
 	public void setModel(Model model) {
 		this.model = model;
+		List<String> nomeCorsi=new LinkedList<String>();
+		nomeCorsi.add("");
+		for(Corso c: model.getCorsi()){
+			nomeCorsi.add(c.getNome());
+		}
+		comboCorso.getItems().addAll(nomeCorsi);
+		
 	}
     @FXML
     private ResourceBundle resources;
@@ -25,7 +35,7 @@ public class SegreteriaStudentiController {
     private URL location;
 
     @FXML
-    private ComboBox<Corso> comboCorso;
+    private ComboBox<String> comboCorso;
 
     @FXML
     private Button btnCercaIscrittiCorso;
@@ -34,7 +44,7 @@ public class SegreteriaStudentiController {
     private TextField txtMatricola;
 
     @FXML
-    private Button btnCercaNome;
+    private ImageView btnCercaNome;
 
     @FXML
     private TextField txtNome;
@@ -56,17 +66,42 @@ public class SegreteriaStudentiController {
 
     @FXML
     void doCercaCorsi(ActionEvent event) {
-
+    	int matricola=Integer.parseInt(txtMatricola.getText());
+    	
+    	Studente s=model.completaStudente(matricola);
+    	if(s==(null)){
+    		txtResult.appendText("Matricola non valida.\n");
+    		
+    	}else{
+    		List<Corso> corsiSeguiti=model.corsiSeguiti(s);
+    		for(Corso c: corsiSeguiti){
+    			txtResult.appendText(String.format("%-10s %-5s %-50s %-10s\n", c.getCodins(),c.getCrediti(),c.getNome(),c.getPd()));
+    		}
+    		
+    	}
+    	
+    	
     }
-
     @FXML
     void doCercaIscrittiCorso(ActionEvent event) {
-
+    	String corso=comboCorso.getValue();
+    	if(corso.equals("") || corso.equals(null)){
+    		txtResult.appendText("Selezionare un corso per effettuare la ricerca.\n");
+    		return;
+    	}else{
+    		List<Studente> lista=model.iscrittiCorso(corso);
+    		for(Studente s: lista){
+    			txtResult.appendText(String.format("%-10s %-20s %-20s %-20s\n", s.getMatricola(), s.getNome(), s.getCognome(), s.getCds() ));
+    		}
+    	}
     }
 
     @FXML
-    void doCercaNome(ActionEvent event) {
-
+    void doCercaNome(MouseEvent event) {
+    	int matricola=Integer.parseInt(txtMatricola.getText());
+    	Studente s=model.completaStudente(matricola);
+    	txtNome.setText(s.getNome());
+    	txtCognome.setText(s.getCognome());
     }
 
     @FXML
@@ -92,11 +127,9 @@ public class SegreteriaStudentiController {
         assert txtResult != null : "fx:id=\"txtResult\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         assert btnReset != null : "fx:id=\"btnReset\" was not injected: check your FXML file 'SegreteriaStudenti.fxml'.";
         
-//        for(Corso c: model.getCorsi()){
-//        	comboCorso.getItems().add(c.getNome());
-//        }
-        comboCorso.getItems().addAll(model.getCorsi());
+        txtResult.setStyle("-fx-font-family: monospace");
         
     }
 }
+
 
