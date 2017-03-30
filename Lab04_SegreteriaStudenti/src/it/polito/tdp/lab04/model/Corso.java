@@ -36,9 +36,4 @@ public class Corso {
 	public List<Studente> getStudentiIscritti() {
 		return studenti;
 	}
-	
-	
-	
-	
-	
 }

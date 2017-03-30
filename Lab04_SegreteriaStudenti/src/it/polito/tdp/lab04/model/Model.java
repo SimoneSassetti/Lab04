@@ -42,7 +42,28 @@ public class Model {
 		dao.corsiStudente(s);
 		return s.getCorsi();
 	}
-	
-	
-	
+	public boolean studentePresente(String c, Studente s){
+		List<Corso> corsi=new ArrayList<Corso>();
+		corsi=this.corsiSeguiti(s);
+		for(Corso corso: corsi){
+			if(corso.getNome().equals(c))
+				return true;
+		}
+		return false;
+	}
+
+	public boolean iscriviStudente(Studente s, String corso) {
+		CorsoDAO dao=new CorsoDAO();
+		Corso c=null;
+		for(Corso corsoDaLista: this.corsi){
+			if(corso.equals(corsoDaLista.getNome())){
+				c=corsoDaLista;
+				break;
+			}
+		}
+		if(dao.inscriviStudenteACorso(s, c))
+			return true;
+		else
+			return false;
+	}
 }

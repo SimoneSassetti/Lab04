@@ -59,16 +59,6 @@ public class StudenteDAO {
 		catch (SQLException e) {
 			// e.printStackTrace();
 			throw new RuntimeException("Errore Db");
-		}
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+		}	
+	}	
 }

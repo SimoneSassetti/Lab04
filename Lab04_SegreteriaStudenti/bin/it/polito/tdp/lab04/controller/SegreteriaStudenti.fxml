@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.lab04.controller.SegreteriaStudentiController">
+<BorderPane xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.lab04.controller.SegreteriaStudentiController">
    <top>
       <Label text="Lab3_Segreteria Studenti" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -43,9 +43,9 @@
                <children>
                   <Label text="Studente:" />
                   <TextField fx:id="txtMatricola" />
-                  <ImageView fx:id="btnCercaNome" fitHeight="30.0" fitWidth="65.0" onMouseClicked="#doCercaNome" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="btnCercaNome" fitHeight="25.0" fitWidth="35.0" onMouseClicked="#doCercaNome" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../../../../../../../Downloads/images.png" />
+                        <Image url="@../../../../../../../../../Desktop/Simone/%23PoliTO/Tecniche%20di%20Programmazione/Laboratorio/Lab4/index.png" />
                      </image>
                   </ImageView>
                   <TextField fx:id="txtNome" editable="false" />
